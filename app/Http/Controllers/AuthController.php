@@ -29,7 +29,17 @@ class AuthController extends Controller
 
         $roleID = Role::where('role_name' , 'User')->first()->id;
         $newUser->roles()->attach($roleID);
-        
+
         return response("Hello World");
+    }
+
+    public function Login(Request $request){
+        $user = User::where('email' , $request->email)->first();
+        if($user && Hash::check($request->password , $user->password)){
+            return response("Hello ," . $user->name);
+        }
+        else{
+            return "Fuck You";
+        }
     }
 }
