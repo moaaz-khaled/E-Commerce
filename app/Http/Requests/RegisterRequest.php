@@ -15,7 +15,7 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=> 'required',
+            'userName'=> 'required',
             'email'=>'required|unique:users,email',
             'password'=> 'required|min:8',
             'confirmPassword' => 'required|same:password',

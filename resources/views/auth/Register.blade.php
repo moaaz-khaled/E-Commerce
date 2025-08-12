@@ -6,7 +6,7 @@
         <div class="w-full">
             <h1 class="text-4xl sm:text-5xl font-bold text-white text-center mb-6 lg:mt-16">Register</h1>
             <div class="w-full px-10 lg:my-20 lg:p-16 xl:px-32 xl:py-0">
-                <form class="space-y-8" action="{{ url('register') }}" method="post">
+                <form class="space-y-8" action="{{ route('RegisterAccount') }}" method="post">
                     @csrf
                     <div class="relative">
                         <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-xl"><img src ="{{ asset('/images/user.png') }}" alt="" /></span>
