@@ -7,6 +7,7 @@ use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -33,13 +34,25 @@ class AuthController extends Controller
         return response("Hello World");
     }
 
-    public function Login(Request $request){
+    public function Login(Request $request)
+    {
         $user = User::where('email' , $request->email)->first();
-        if($user && Hash::check($request->password , $user->password)){
+        if($user && Hash::check($request->password , $user->password)) {
+            Auth::login($user); // To Create Session
             return response("Hello ," . $user->name);
         }
-        else{
+        else {
             return "Fuck You";
         }
     }
+
+    public function logout(Request $request){
+        Auth::logout(); // To Destroy This Sessiob
+
+        $request->session()->forget('user');
+        $request->session()->regenerateToken();      // To Update Session To Make User in safe
+
+        return redirect('/login');
+    }
+    // Read More About Auth >> And JWT
 }
