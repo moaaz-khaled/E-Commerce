@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\adminMiddleware;
 use App\Http\Middleware\AuthCheck;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -12,9 +13,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
         $middleware->alias([
             'auth' => AuthCheck::class,
+            'AdminTest'=> adminMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

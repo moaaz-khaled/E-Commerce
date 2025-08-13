@@ -31,7 +31,8 @@ class AuthController extends Controller
         $roleID = Role::where('role_name' , 'User')->first()->id;
         $newUser->roles()->attach($roleID);
 
-        return response("Hello World");
+        Auth::login($newUser);
+        return redirect('/Test');
     }
 
     public function Login(Request $request)
