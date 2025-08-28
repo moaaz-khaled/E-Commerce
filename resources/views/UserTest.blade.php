@@ -6,7 +6,7 @@
     <title>UserTest</title>
 </head>
 <body>
-    Hello World Admin
+    Hello World User
 
     <form action="{{ url('/Logout') }}" method="post">
         @csrf

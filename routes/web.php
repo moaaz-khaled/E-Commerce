@@ -8,17 +8,17 @@ Route::get('/', function () {
 });
 
 
-Route::get('/login' , [AuthController::class , 'LoginPage']);
-Route::get('/register' , [AuthController::class , 'RegisterPage']);
+Route::get('/login' , [AuthController::class , 'LoginPage'])->middleware('LoginCheck');
+Route::get('/register' , [AuthController::class , 'RegisterPage'])->middleware('LoginCheck');
 Route::post('/register' , [AuthController::class , 'register'])->name('RegisterAccount');
 Route::post('login' , [AuthController::class , 'Login'])->name("LoginAccount");
 
 Route::get('/AdminTest' , function(){
-    return view('/AdminTest');
-})->middleware('AdminTest');
+    return view('admin.Home');
+})->middleware('AdminCheck');
 
 Route::get('/UserTest' , function(){
-    return view('UserTest');
+    return view('/UserTest');
 })->middleware('auth');
 
 Route::post('/Logout' , [AuthController::class , 'logout']);

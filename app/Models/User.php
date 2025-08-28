@@ -14,6 +14,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     protected $hidden = [
@@ -27,9 +28,5 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    public function roles(){
-        return $this->belongsToMany(Role::class , 'user_role' , 'user_id' , 'role_id');
     }
 }

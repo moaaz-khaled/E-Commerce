@@ -7,8 +7,10 @@ use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+
 
 class AuthController extends Controller
 {
@@ -26,24 +28,29 @@ class AuthController extends Controller
             'name' => $request->userName,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-
-        $roleID = Role::where('role_name' , 'User')->first()->id;
-        $newUser->roles()->attach($roleID);
-
         Auth::login($newUser);
-        return redirect('/Test');
+        if($newUser->role == 'admin')
+            return redirect('/AdminTest');
+        else
+            return redirect('/UserTest');
     }
 
     public function Login(Request $request)
     {
         $user = User::where('email' , $request->email)->first();
-        if($user && Hash::check($request->password , $user->password)) {
-            Auth::login($user); // To Create Session
-            return response("Hello ," . $user->name);
+        if($user && Hash::check($request->password , $user->password))
+        {
+            Auth::login($user);
+            if($user->role == 'admin')
+                return redirect('/AdminTest');
+            else if($user->role == 'user')
+                return redirect('/UserTest');
         }
         else {
-            return "Fuck You";
+            return response("Fuck");
         }
     }
 
