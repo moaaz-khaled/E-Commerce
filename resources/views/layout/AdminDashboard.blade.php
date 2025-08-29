@@ -9,7 +9,7 @@
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
 </head>
-<body class = "bg-gray-300 w-full h-full flex">
+<body class = "bg-[#EEEEEE] w-full h-full flex">
     <div class = "w-1/6 h-full">
         <x-admin.admin-sidebar/>
     </div>
@@ -17,7 +17,9 @@
         <div class = "w-full h-[120px] flex items-center px-16">
             <x-admin.header/>
         </div>
-        @yield('content')
+        <div class="h-[calc(100%-120px)]">
+            @yield('content')
+        </div>
     </div>
 </body>
 </html>

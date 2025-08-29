@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -13,9 +14,19 @@ Route::get('/register' , [AuthController::class , 'RegisterPage'])->middleware('
 Route::post('/register' , [AuthController::class , 'register'])->name('RegisterAccount');
 Route::post('login' , [AuthController::class , 'Login'])->name("LoginAccount");
 
-Route::get('/AdminTest' , function(){
-    return view('admin.Home');
-})->middleware('AdminCheck');
+Route::prefix('Admin')->middleware('AdminCheck')->group(function(){
+    Route::get('/Dashboard' , function(){
+        return view('admin.Home');
+    });
+    Route::get('/AddProduct' , function(){
+        return view('admin.AddProduct');
+    });
+});
+
+Route::controller(ProductController::class)->group(function(){
+    Route::get('/ShowAllProduct' , 'index');
+    Route::post('/UploadProduct' , 'store')->name('storeProduxt');
+});
 
 Route::get('/UserTest' , function(){
     return view('/UserTest');
